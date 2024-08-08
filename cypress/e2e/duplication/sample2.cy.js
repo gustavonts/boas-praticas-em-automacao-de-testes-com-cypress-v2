@@ -15,23 +15,15 @@ describe('Code duplication bad practice - repetitive tests', () => {
       .clear()
   })
 
-  it('searches for "reactjs"', () => {
-    cy.get('@searchField')
-      .type('reactjs{enter}')
+  const termsToSearchFor = ['reactjs', 'vuejs', 'angularjs']
 
-    cy.wait('@getStories')
-
-    cy.get('.table-row')
+  termsToSearchFor.forEach(term => {
+    it(`Searches for "${term}"`,() =>{
+      cy.search(term)
+      cy.wait('@getStories')
+  
+      cy.get('.table-row')
       .should('have.length', 100)
-  })
-
-  it('searches for "vuejs"', () => {
-    cy.get('@searchField')
-      .type('vuejs{enter}')
-
-    cy.wait('@getStories')
-
-    cy.get('.table-row')
-      .should('have.length', 100)
+    })
   })
 })
