@@ -6,10 +6,10 @@ describe('Flaky tests bad practice', () => {
 
     cy.intercept(
       'GET',
-      '**/search**'
-    ).as('getStories')
+      '**/search**',
+      { fixture: 'stories' }
+    )
 
-    cy.wait('@getStories')
   })
 
   Cypress._.times(10, () => {
@@ -17,8 +17,6 @@ describe('Flaky tests bad practice', () => {
       Cypress._.times(6, () => {
         cy.search(faker.random.word())
       })
-
-      cy.wait('@getStories')
 
       cy.get('.last-searches button')
         .should('have.length', 5)
