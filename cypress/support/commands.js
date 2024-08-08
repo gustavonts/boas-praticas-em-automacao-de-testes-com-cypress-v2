@@ -26,5 +26,5 @@ Cypress.Commands.add('updateDestination', data => {
     .clear()
     .type(data.description)
   cy.get('input[type="submit"]')
-    .click()
+      .click()
 })
